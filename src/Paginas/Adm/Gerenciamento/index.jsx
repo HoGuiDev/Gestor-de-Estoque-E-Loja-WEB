@@ -14,11 +14,15 @@ export default function Gerenciamento() {
   useEffect(() => {
     const requisicao = async () => {
       try {
-        fetch("http://192.168.1.8:3000/produtos_gerenciador")
-          .then((res) => {
-            return res.json()
-          })
-          .then((res) => (setDB(res)))
+        const token = localStorage.getItem("Token")
+        fetch("http://192.168.1.8:3000/api/produtos_gerenciador", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          }
+        })
+        .then((res) => res.json()).then((res) => (setDB(res)))
       }
       catch (error) {
         console.log("Algo não está funcionando direito: " + error)
@@ -31,11 +35,15 @@ export default function Gerenciamento() {
   function Pegar_Produtos() {
     const requisicao = async () => {
       try {
-        fetch("http://192.168.1.8:3000/produtos_gerenciador")
-          .then((res) => {
-            return res.json()
-          })
-          .then((res) => (setDB(res)))
+        const token = localStorage.getItem("Token")
+        fetch("http://192.168.1.8:3000/api/produtos_gerenciador", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          }
+        })
+        .then((res) => res.json()).then((res) => (setDB(res)))
       }
       catch (error) {
         console.log("Algo não está funcionando direito: " + error)
@@ -54,19 +62,33 @@ export default function Gerenciamento() {
     if (dbsabor.value != "" && dbquantidade.value != "" && dbvalor.value != "") {
 
       try {
-        const request = await fetch("http://192.168.1.8:3000/add", {
+        const token = localStorage.getItem("Token")
+        const request = await fetch("http://192.168.1.8:3000/api/add", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
           },
           body: JSON.stringify({
+            query: `INSERT INTO sggl.gelados (sabor, quantidade, preço, disponivel) values (?,?,?,?)`,
+            valores: [dbsabor.value, dbquantidade.value, dbvalor.value, dbdisponivel.checked == true ? "1" : "0"]
+          })
+          /* body: JSON.stringify({
             sabor: dbsabor.value,
             quantidade: dbquantidade.value,
             valor: dbvalor.value,
-            disponivel: dbdisponivel.checked == true? "true":"false"
-          })
+            disponivel: dbdisponivel.checked == true ? "1" : "0"
+          }) */
         })
-        const res = await request.json()
+        
+        if(request.status === 401 || request.status === 403) {
+          localStorage.removeItem("Token")
+          window.alert("Tempo expirado!")
+          window.href="/login"
+        }
+        else {
+          const res = await request.json()
+        }
       }
       catch (err) { console.log(err) }
     }
@@ -82,73 +104,65 @@ export default function Gerenciamento() {
   }
 
 
-
-  if (localStorage.getItem("Token")) {
-    if (localStorage.getItem("tempo1") >= localStorage.getItem("tempo2")) {
-      return (
-        <>
-          <ModelEdit isOpen={ModalEdit} dados={ItemSelecionado} isClose={() => {setModalEdit(!ModalEdit); Pegar_Produtos()}} />
-          <Main>
-            <Bloco>
-              <Label>Registro de Podutos</Label>
-
-              <Form>
-                <Label>Nome do produto:</Label>
-                <Input
-                  id="sabor"
-                  placeholder="Nome do produto" />
-
-                <Label>Quantidade:</Label>
-                <Input
-                  id="quantidade"
-                  placeholder="Ex: 10" />
-
-                <Label>Valor:</Label>
-                <Input
-                  id="valor"
-                  placeholder="Ex: 3,00" />
-                
-                <input id="disponivel" type="checkbox"></input>
-
-              </Form>
-
-              <Button type="submit" onClick={Add_Produtos}>Adicionar</Button>
-
-            </Bloco>
-
-            <Bloco>
-              <Borda key={"b1"} $mBottom>
-                <Label $borda>Produtos Registrados</Label>
-              </Borda>
-              <Borda>
-                <Item key={"yek"}>
-                  <p>Sabor</p>
-                  <p>Preço R$</p>
-                  <p>Quantidade</p>
-                  <p>Disponivel</p>
-                </Item>
-                {
-                  DB.map((item) =>
-                    <Item key={item.ID}>
-                      <p>{item.sabor}</p>
-                      <p>{item.preço}</p>
-                      <p>{item.quantidade}</p>
-                      <Img $Shadow={item.disponivel} src={item.disponivel == 1 ? check : xis}></Img>
-                      <BtnEdit onClick={() => { setModalEdit(true); setItemSelecionado(item) }}>✏️</BtnEdit>
-                    </Item>
-                  )
-                }
-              </Borda>
-            </Bloco>
-          </Main>
-        </>
-      )
-    }
-    else {
-      return (
-        window.location.href = "/login"
-      )
-    }
+  if(localStorage.getItem("Token")) {
+    return (
+      <>
+        <ModelEdit isOpen={ModalEdit} dados={ItemSelecionado} isClose={() => { setModalEdit(!ModalEdit); Pegar_Produtos() }} />
+        <Main>
+          <Bloco>
+            <Label>Registro de Podutos</Label>
+  
+            <Form>
+              <Label>Nome do produto:</Label>
+              <Input
+                id="sabor"
+                placeholder="Nome do produto" />
+  
+              <Label>Quantidade:</Label>
+              <Input
+                id="quantidade"
+                placeholder="Ex: 10" />
+  
+              <Label>Valor:</Label>
+              <Input
+                id="valor"
+                placeholder="Ex: 3,00" />
+  
+              <input id="disponivel" type="checkbox"></input>
+  
+            </Form>
+  
+            <Button type="submit" onClick={Add_Produtos}>Adicionar</Button>
+  
+          </Bloco>
+  
+          <Bloco>
+            <Borda key={"b1"} $mBottom>
+              <Label $borda>Produtos Registrados</Label>
+            </Borda>
+            <Borda>
+              <Item key={"yek"}>
+                <p>Sabor</p>
+                <p>Preço R$</p>
+                <p>Quantidade</p>
+                <p>Disponivel</p>
+              </Item>
+              {
+                DB.map((item) =>
+                  <Item key={item.ID}>
+                    <p>{item.sabor}</p>
+                    <p>{item.preço}</p>
+                    <p>{item.quantidade}</p>
+                    <Img $Shadow={item.disponivel} src={item.disponivel == 1 ? check : xis}></Img>
+                    <BtnEdit onClick={() => { setModalEdit(true); setItemSelecionado(item) }}>✏️</BtnEdit>
+                  </Item>
+                )
+              }
+            </Borda>
+          </Bloco>
+        </Main>
+      </>
+    )
   }
   else {
     return (

@@ -11,7 +11,7 @@ async function logar() {
     if (pass.value !== "") {
 
       try {
-        const request = await fetch("http://192.168.1.8:3000/loginadm", {
+        const request = await fetch("http://192.168.1.8:3000/api/loginadm", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -23,11 +23,9 @@ async function logar() {
         })
         const res = await request.json()
 
-        let detoken = jwtDecode(res.Token)
+        console.log(res.Token)
 
-        localStorage.setItem("tempo1", detoken.exp)
-        localStorage.setItem("tempo2", detoken.iat)
-        localStorage.setItem("Token", detoken)
+        localStorage.setItem("Token", res.Token)
 
         window.location.href = "/gerenciamento"
       }

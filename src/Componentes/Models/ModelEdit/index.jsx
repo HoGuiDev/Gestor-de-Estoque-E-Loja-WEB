@@ -18,20 +18,29 @@ export function ModelEdit({ isOpen, isClose, dados }) {
   }, [dados])
 
   async function Delet() {
-
-    const request = await fetch("http://192.168.1.8:3000/delet", {
+    const token = localStorage.getItem("Token")
+    const request = await fetch("http://192.168.1.8:3000/api/delet", {
       method: "DELETE",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify({
         id: dados.ID
       })
     })
-    const res = await request.json()
-    console.log(res)
 
-    isClose()
+    if (request.status === 401 || request.status === 403) {
+      localStorage.removeItem("Token")
+      window.alert("Tempo expirado!")
+      isClose()
+      window.href = "/login"
+    }
+    else {
+      const res = await request.json()
+      console.log(res)
+      isClose()
+    }
 
   }
 
@@ -43,10 +52,12 @@ export function ModelEdit({ isOpen, isClose, dados }) {
 
     let id = dados.ID
 
-    const request = await fetch("http://192.168.1.8:3000/atualizar", {
+    const token = localStorage.getItem("Token")
+    const request = await fetch("http://192.168.1.8:3000/api/atualizar", {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify({
         sabor: Sabor.value,
@@ -57,10 +68,17 @@ export function ModelEdit({ isOpen, isClose, dados }) {
       })
     })
 
-    const res = await request.json()
-    console.log(res)
-
-    isClose()
+    if(request.status === 401 || request.status === 403) {
+      localStorage.removeItem("Token")
+      window.alert("Tempo expirado!")
+      isClose()
+      window.href="/login"
+    }
+    else {
+      const res = await request.json()
+      console.log(res)
+      isClose()
+    }
   }
 
   if (isOpen) {

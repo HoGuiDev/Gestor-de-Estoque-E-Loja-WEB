@@ -13,7 +13,7 @@ export default function Home() {
   useEffect(() => {
     const requisicao = async () => {
       try {
-        fetch("http://192.168.1.8:3000/produtos")
+        fetch("http://192.168.1.8:3000/api/produtos")
           .then((res) => {
             return res.json()
           })

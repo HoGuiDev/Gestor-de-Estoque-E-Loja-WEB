@@ -10,21 +10,21 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 const MinhasRotas = createBrowserRouter([
   {
-    path:"/",
+    path: "/",
     element: <Home />
   },
   {
-    path:"/login",
+    path: "/login",
     element: <Login />
   },
   {
-    path:"/gerenciamento",
+    path: "/gerenciamento",
     element: <Gerenciamento />
   }
 ])
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={MinhasRotas}/>
+    <RouterProvider router={MinhasRotas} />
   </StrictMode>,
 )
