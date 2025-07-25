@@ -1,6 +1,4 @@
 import { Conteiner, Div1, InputCtn, Btn } from "./LoginStyled"
-import { jwtDecode } from "jwt-decode"
-
 
 async function logar() {
 
@@ -23,8 +21,6 @@ async function logar() {
         })
         const res = await request.json()
 
-        console.log(res.Token)
-
         localStorage.setItem("Token", res.Token)
 
         window.location.href = "/gerenciamento"
@@ -35,14 +31,11 @@ async function logar() {
       //Criar uma caixa de alerta Melhorzinha
       alert("Preencha os campos adequadamente!")
     }
-
   }
   else {
     alert("Preencha os campos adequadamente!")
   }
-
 }
-
 
 
 export default function Login() {

@@ -1,6 +1,8 @@
 import styled from "styled-components"
 
 export const MainCardapio = styled.main `
+  display: flex;
+  flex-direction: column;
 `
 
 export const HeaderCardapio = styled.header `
@@ -38,6 +40,7 @@ export const Produtos = styled.div `
   border-radius: 10px;
 
   justify-self: ${a => a.$alinhar? a.$alinhar: "auto"};
+  align-content: baseline;
 
   display: flex;
   flex-wrap: wrap;
@@ -46,9 +49,7 @@ export const Produtos = styled.div `
 
   padding: 10px;
 
-  margin: 15px;
-
-  width: 90dvw;
+  margin: 0px 15px 0px 15px;
 `
 
 export const Consumiveis = styled.div `
@@ -81,4 +82,23 @@ export const BtAdd = styled.button `
   border-radius: 10px;
 
   background-color: #70ee64;
+`
+
+export const Menu = styled.div `
+  display: flex;
+`
+
+//Carrinho
+export const Carrinho = styled.aside `
+  border: black solid 2px;
+  border-radius: 10px;
+
+  height: auto;
+  width: 30%;
+
+  margin-right: 15px;
+
+  & > h3 {
+    justify-self: center;
+  }
 `

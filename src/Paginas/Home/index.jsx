@@ -2,13 +2,17 @@ import { useEffect, useState } from "react";
 import {
   Produtos,
   MainCardapio, TituloH1, Consumiveis, HeaderCardapio, ToolBar, BotaoGeral,
-  BtAdd
+  BtAdd, Menu, Carrinho
 } from "./HomeStyled"
 
 export default function Home() {
 
   const [DB, setDB] = useState([])
   const [Carregando, setCarregando] = useState(true)
+
+  const [Comanda, setComanda] = useState([])
+
+
 
   useEffect(() => {
     const requisicao = async () => {
@@ -39,13 +43,30 @@ export default function Home() {
   }
 
   function BordaCorAleatoria() {
-    const borda = document.querySelectorAll(".Borda").forEach(element => {
+    document.querySelectorAll(".Borda").forEach(element => {
       element.style.borderColor = CorAleatoria()
     });
   }
 
   setTimeout(BordaCorAleatoria, 100)
   setInterval(BordaCorAleatoria, 1500)
+
+  function AddCarrinho(item) {
+
+    let dados = []
+    dados.push(item, Comanda)
+
+    let contagem = {}
+
+    dados.forEach(x => {
+      contagem[x] = ( contagem[x] || 0 ) + 1
+    })
+
+    console.log(contagem)
+    console.log(dados)
+
+    setComanda(contagem)
+  }
 
   if (Carregando) {
     return (
@@ -67,18 +88,26 @@ export default function Home() {
           <BotaoGeral>Mais</BotaoGeral>
         </ToolBar>
 
-        <Produtos $alinhar="center">
-          {
-            DB.map((item) =>
-              <Consumiveis key={item.id} className="Borda">
-                <p>Sabor: {item.sabor}</p>
-                <p>Quantidade: {item.quantidade}</p>
-                <p>Preço: {item.preço}</p>
-                <BtAdd>+</BtAdd>
-              </Consumiveis>
-            )
-          }
-        </Produtos>
+        <Menu>
+
+          <Produtos $alinhar="center">
+            {
+              DB.map((item) =>
+                <Consumiveis key={item.ID} className="Borda">
+                  <p>Sabor: {item.sabor}</p>
+                  <p>Quantidade: {item.quantidade}</p>
+                  <p>Preço: {item.preço}</p>
+                  <BtAdd onClick={() => AddCarrinho(item)}>+</BtAdd>
+                </Consumiveis>
+              )
+            }
+          </Produtos>
+
+          <Carrinho>
+            <h3>teste</h3>
+          </Carrinho>
+
+        </Menu>
 
       </MainCardapio>
 

@@ -15,7 +15,7 @@ export default function Gerenciamento() {
     const requisicao = async () => {
       try {
         const token = localStorage.getItem("Token")
-        fetch("http://192.168.1.8:3000/api/produtos_gerenciador", {
+        fetch("http://192.168.1.8:3000/api/get_gerenciador", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export default function Gerenciamento() {
     const requisicao = async () => {
       try {
         const token = localStorage.getItem("Token")
-        fetch("http://192.168.1.8:3000/api/produtos_gerenciador", {
+        fetch("http://192.168.1.8:3000/api/get_gerenciador", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -70,15 +70,11 @@ export default function Gerenciamento() {
             "Authorization": `Bearer ${token}`
           },
           body: JSON.stringify({
-            query: `INSERT INTO sggl.gelados (sabor, quantidade, preço, disponivel) values (?,?,?,?)`,
-            valores: [dbsabor.value, dbquantidade.value, dbvalor.value, dbdisponivel.checked == true ? "1" : "0"]
-          })
-          /* body: JSON.stringify({
             sabor: dbsabor.value,
             quantidade: dbquantidade.value,
             valor: dbvalor.value,
             disponivel: dbdisponivel.checked == true ? "1" : "0"
-          }) */
+          })
         })
         
         if(request.status === 401 || request.status === 403) {

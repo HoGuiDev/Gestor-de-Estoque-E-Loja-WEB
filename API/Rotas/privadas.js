@@ -5,7 +5,7 @@ const pool = require("./Banco-de-Dados/Conecta-DB")
 
 
 //Pegar dados para o gerenciador
-router.get("/produtos_gerenciador", async (req, res) => {   //Pega informações dos produtos no banco de dados
+router.get("/get_gerenciador", async (req, res) => {   //Pega informações dos produtos no banco de dados
   pool.query("SELECT * FROM sggl.gelados", (err, result) => {
     if(result) {
       res.status(200).json(result)
@@ -19,11 +19,10 @@ router.get("/produtos_gerenciador", async (req, res) => {   //Pega informações
 //Adicionar dados
 router.post("/add", async (req, res) => {
 
-/*   let {sabor, quantidade, valor, disponivel} = req.body
+  let {sabor, quantidade, valor, disponivel} = req.body
 
   let query = 'INSERT INTO sggl.gelados (sabor, quantidade, preço, disponivel) values (?,?,?,?)'
-  let valores = [sabor, quantidade, valor, disponivel] */
-  let {query, valores} = req.body
+  let valores = [sabor, quantidade, valor, disponivel]
 
   pool.query(query, valores, (err, result) => {
     if(err) {

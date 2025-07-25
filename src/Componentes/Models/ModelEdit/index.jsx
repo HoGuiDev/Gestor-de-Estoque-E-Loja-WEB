@@ -41,7 +41,6 @@ export function ModelEdit({ isOpen, isClose, dados }) {
       console.log(res)
       isClose()
     }
-
   }
 
   async function Salvar() {

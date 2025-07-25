@@ -9,6 +9,7 @@ require('dotenv').config()
 
 //Pegar dados
 router.get("/produtos", async (req, res) => {   //Pega informações dos produtos no banco de dados
+
   pool.query("SELECT * FROM sggl.gelados where disponivel = 1", (err, result) => {
     if(result) {
       res.status(200).json(result)
@@ -21,7 +22,6 @@ router.get("/produtos", async (req, res) => {   //Pega informações dos produto
 
 //Login do ADM
 router.post("/loginadm", async (req, res, next) => {
-
 
   let {Usuario, Senha} = req.body
 
@@ -36,11 +36,11 @@ router.post("/loginadm", async (req, res, next) => {
     const comp = await bcrypt.compare(Senha, user.senha)
   
     if (comp == true) {
-      const Token = jwt.sign({ name: Usuario }, process.env.jwt_code, { expiresIn: '1m' })
+      const Token = jwt.sign({ name: Usuario }, process.env.jwt_code, { expiresIn: '1h' })
       res.status(200).json({Token})
     }
     else {
-      res.status().json("Senha Incorreta!")
+      res.status(401).json("Senha ou Usuario Incorreto!")
     }
   }
   catch(err) {
