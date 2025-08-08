@@ -7,6 +7,8 @@ export const Fundo = styled.div `
 
   width: 100dvw;
   height: 100%;
+
+  overflow-y: hidden;
 `
 
 export const Conteiner = styled.div `

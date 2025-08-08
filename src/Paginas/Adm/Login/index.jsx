@@ -19,11 +19,19 @@ async function logar() {
             Senha: pass.value
           })
         })
-        const res = await request.json()
 
-        localStorage.setItem("Token", res.Token)
+        if(request.status === 401 || request.status === 403) {
+          const res = await request.json()
+          console.log(res)
+        }
+        else {
+          const res = await request.json()
+          console.log(res)
+          localStorage.setItem("Token", res.token)
+  
+          window.location.href = "/gerenciamento"
+        }
 
-        window.location.href = "/gerenciamento"
       }
       catch (erro) { console.log(erro) }
     }

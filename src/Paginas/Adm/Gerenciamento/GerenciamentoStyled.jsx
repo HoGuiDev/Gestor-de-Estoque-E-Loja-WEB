@@ -5,6 +5,8 @@ export const Main = styled.main `
   height: auto;
 
   padding: 25px;
+
+  overflow-y: hidden;
 `
 
 export const Bloco = styled.div `
@@ -42,6 +44,12 @@ export const Input = styled.input `
 
   border-radius: 5px;
   border: none;
+`
+
+export const DivInput = styled.div `
+  display: flex;
+  width: 20%;
+  justify-content: space-around;
 `
 
 export const Button = styled.button `
@@ -92,6 +100,7 @@ export const Item = styled.div`
 
   & > p {
     width: max-content;
+    flex-basis: 16%;
   }
 `
 

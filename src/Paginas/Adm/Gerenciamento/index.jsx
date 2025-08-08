@@ -1,4 +1,4 @@
-import { Main, Bloco, Input, Label, Form, Button, Borda, Item, BtnEdit, Img } from "./GerenciamentoStyled"
+import { Main, Bloco, Input, Label, Form, Button, Borda, Item, BtnEdit, Img, DivInput } from "./GerenciamentoStyled"
 import { ModelEdit } from "../../../Componentes/Models/ModelEdit"
 import { useState, useEffect } from "react"
 
@@ -123,8 +123,12 @@ export default function Gerenciamento() {
               <Input
                 id="valor"
                 placeholder="Ex: 3,00" />
-  
-              <input id="disponivel" type="checkbox"></input>
+
+              
+              <DivInput>
+                <Label>Disponivel</Label>
+                <input id="disponivel" type="checkbox"/>
+              </DivInput>
   
             </Form>
   

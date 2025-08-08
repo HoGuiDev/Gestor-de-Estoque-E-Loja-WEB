@@ -11,9 +11,9 @@ require('dotenv').config()
 router.get("/produtos", async (req, res) => {   //Pega informações dos produtos no banco de dados
 
   pool.query("SELECT * FROM sggl.gelados where disponivel = 1", (err, result) => {
-    if(result) {
+    if (result) {
       res.status(200).json(result)
-    }else{
+    } else {
       res.status(400).json(err)
     }
   })
@@ -23,27 +23,28 @@ router.get("/produtos", async (req, res) => {   //Pega informações dos produto
 //Login do ADM
 router.post("/loginadm", async (req, res, next) => {
 
-  let {Usuario, Senha} = req.body
+  let { Usuario, Senha } = req.body
 
   try {
-    const [rows] = await pool.promise().query(`SELECT * from sggl.adms where usuario = ?`, [Usuario])
-  
-    if (rows.length === 0) {
-      res.status(401).json({Erro: "Usuario não encontrado!"})
-    }
-  
-    const user = rows[0]
-    const comp = await bcrypt.compare(Senha, user.senha)
-  
-    if (comp == true) {
-      const Token = jwt.sign({ name: Usuario }, process.env.jwt_code, { expiresIn: '1h' })
-      res.status(200).json({Token})
+    const [pesquisa] = await pool.promise().query(`SELECT * from sggl.adms where usuario = ?`, [Usuario])
+
+    if (pesquisa.length === 0) {
+      res.status(401).json("Usuario não encontrado!")
     }
     else {
-      res.status(401).json("Senha ou Usuario Incorreto!")
+      let user = pesquisa[0]
+      let compara = await bcrypt.compare(Senha, user.senha)
+
+      if (compara === true) {
+        const Token = jwt.sign({ name: Usuario }, process.env.jwt_code, { expiresIn: '1h' })
+        res.status(200).json({token: Token, verificar: true})
+      }
+      else {
+        res.status(401).json("Usuario ou senha incorreto!")
+      }
     }
   }
-  catch(err) {
+  catch (err) {
     next(err)
   }
 })
