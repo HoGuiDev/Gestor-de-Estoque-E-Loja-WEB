@@ -53,64 +53,91 @@ export default function Home() {
 
   function AddCarrinho(item) {
 
-    let dados = []
-    dados.push(item, Comanda)
+    setComanda(prev => {
+      let index = prev.findIndex(a => a.ID === item.ID)
 
-    let contagem = {}
-
-    dados.forEach(x => {
-      contagem[x] = ( contagem[x] || 0 ) + 1
+      if (index !== -1) {
+        return prev.map((p, i) =>
+          i === index ? { ...p, quantidade: (p.quantidade || 0) + 1 } : p
+        )
+      }
+      return [...prev, { ID: item.ID, sabor: item.sabor, quantidade: 1 }]
     })
-
-    console.log(contagem)
-    console.log(dados)
-
-    setComanda(contagem)
   }
+
+  function RemoverCarrinho(item) {
+    setComanda(prev => {
+      let index = prev.findIndex(a => a.ID === item.ID)
+      
+      if(index !== -1) {
+
+        let quanti = item.quantidade
+        
+        if(quanti <= 1) {
+          return prev.filter(a => a.ID !== item.ID)
+        }
+
+        return prev.map((p, i) => 
+          i === index ? { ...p, quantidade: (p.quantidade || 0) - 1 } : p
+        )
+      }
+    })
+  }
+
 
   if (Carregando) {
     return (
       <h1>Carregando...</h1>
     )
   }
+  else {
 
-  return (
-    <>
-      <MainCardapio>
+    return (
+      <>
+        <MainCardapio>
 
-        <HeaderCardapio>
-          <TituloH1>Cardapio</TituloH1>
-        </HeaderCardapio>
+          <HeaderCardapio>
+            <TituloH1>Cardapio</TituloH1>
+          </HeaderCardapio>
 
-        <ToolBar>
-          <BotaoGeral>Escolher Aleatorio</BotaoGeral>
-          <BotaoGeral>Sacola</BotaoGeral>
-          <BotaoGeral>Mais</BotaoGeral>
-        </ToolBar>
+          <ToolBar>
+            <BotaoGeral>Escolher Aleatorio</BotaoGeral>
+            <BotaoGeral>Sacola</BotaoGeral>
+            <BotaoGeral>Mais</BotaoGeral>
+          </ToolBar>
 
-        <Menu>
+          <Menu>
 
-          <Produtos $alinhar="center">
-            {
-              DB.map((item) =>
-                <Consumiveis key={item.ID} className="Borda">
-                  <p>Sabor: {item.sabor}</p>
-                  <p>Quantidade: {item.quantidade}</p>
-                  <p>Preço: {item.preço}</p>
-                  <BtAdd onClick={() => AddCarrinho(item)}>+</BtAdd>
-                </Consumiveis>
-              )
-            }
-          </Produtos>
+            <Produtos $alinhar="center">
+              {
+                DB.map((item) =>
+                  <Consumiveis key={item.ID} className="Borda">
+                    <p>Sabor: {item.sabor}</p>
+                    <p>Quantidade: {item.quantidade}</p>
+                    <BtAdd onClick={() => AddCarrinho(item)}>+</BtAdd>
+                    <p>Preço: {item.preço}</p>
+                  </Consumiveis>
+                )
+              }
+            </Produtos>
 
-          <Carrinho>
-            <h3>teste</h3>
-          </Carrinho>
+            <Carrinho>
+              <h3>Carrinho</h3>
+              {
+                Comanda.map((item) =>
+                  <div key={item.ID}>
+                    <p>{item.sabor}{item.quantidade}</p>
+                    <button onClick={() => RemoverCarrinho(item)}>-1</button>
+                  </div>
+                )
+              }
+            </Carrinho>
 
-        </Menu>
+          </Menu>
 
-      </MainCardapio>
+        </MainCardapio>
 
-    </>
-  )
+      </>
+    )
+  }
 }

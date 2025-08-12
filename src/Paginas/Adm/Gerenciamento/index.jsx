@@ -56,10 +56,10 @@ export default function Gerenciamento() {
   async function Add_Produtos() {
     let dbsabor = document.getElementById("sabor")
     let dbquantidade = document.getElementById("quantidade")
-    let dbvalor = document.getElementById("valor")
+    let dbpreco = document.getElementById("preco")
     let dbdisponivel = document.getElementById("disponivel")
 
-    if (dbsabor.value != "" && dbquantidade.value != "" && dbvalor.value != "") {
+    if (dbsabor.value != "" && dbquantidade.value != "" && dbpreco.value != "") {
 
       try {
         const token = localStorage.getItem("Token")
@@ -72,7 +72,7 @@ export default function Gerenciamento() {
           body: JSON.stringify({
             sabor: dbsabor.value,
             quantidade: dbquantidade.value,
-            valor: dbvalor.value,
+            preco: dbpreco.value,
             disponivel: dbdisponivel.checked == true ? "1" : "0"
           })
         })
@@ -94,7 +94,7 @@ export default function Gerenciamento() {
 
     dbsabor.value = ""
     dbquantidade.value = ""
-    dbvalor.value = ""
+    dbpreco.value = ""
 
     Pegar_Produtos()
   }
@@ -119,9 +119,9 @@ export default function Gerenciamento() {
                 id="quantidade"
                 placeholder="Ex: 10" />
   
-              <Label>Valor:</Label>
+              <Label>preco:</Label>
               <Input
-                id="valor"
+                id="preco"
                 placeholder="Ex: 3,00" />
 
               
