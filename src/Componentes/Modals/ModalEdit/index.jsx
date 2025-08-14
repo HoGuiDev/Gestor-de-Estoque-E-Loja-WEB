@@ -1,7 +1,7 @@
 import { Fundo, Conteiner, BtnDelet, BtnFechar, BtnSalvar } from "./ModelEditStyled"
 import { useEffect } from "react"
 
-export function ModelEdit({ isOpen, isClose, dados }) {
+export function ModalEdit({ isOpen, isClose, dados }) {
 
   useEffect(() => {
     if (dados) {

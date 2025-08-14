@@ -5,6 +5,7 @@ import './index.css'
 import Home from './Paginas/Home'
 import Gerenciamento from './Paginas/Adm/Gerenciamento'
 import Login from './Paginas/Adm/Login'
+import Registro from './Paginas/Adm/Registro'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
@@ -20,6 +21,10 @@ const MinhasRotas = createBrowserRouter([
   {
     path: "/gerenciamento",
     element: <Gerenciamento />
+  },
+  {
+    path: "/registro",
+    element: <Registro />
   }
 ])
 

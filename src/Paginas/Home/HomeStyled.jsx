@@ -82,6 +82,10 @@ export const BtAdd = styled.button `
   border-radius: 10px;
 
   background-color: #70ee64;
+
+  &:active {
+    background: #01d401;
+  }
 `
 
 export const Menu = styled.div `
@@ -93,12 +97,56 @@ export const Carrinho = styled.aside `
   border: black solid 2px;
   border-radius: 10px;
 
-  height: auto;
+  display: flex;
+  flex-direction: column;
+
+  height: 388px;
   width: 30%;
 
   margin-right: 15px;
 
   & > h3 {
-    justify-self: center;
+
+    align-self: center;
   }
+`
+
+export const DivComanda = styled.div `
+  width: 100%;
+  height: 90%;
+  
+`
+
+export const DivC = styled.div `
+  display: flex;
+  justify-content: space-around;
+
+  &>p {
+    flex-basis: 37%;
+  }
+`
+
+export const ButtonC = styled.button `
+  width: 20px;
+  height: 20px;
+
+  flex-basis: 11%;
+
+  border-radius: 10px;
+  border: black solid 1px;
+
+  background: #fd4c4c;
+  &:active {
+    background: red;
+  }
+`
+
+export const DivPreço = styled.div `
+
+  display: flex;
+
+  justify-self: end;
+  align-self: flex-start;
+
+  gap: 10px;
 `

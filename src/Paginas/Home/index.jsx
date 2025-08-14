@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
   Produtos,
   MainCardapio, TituloH1, Consumiveis, HeaderCardapio, ToolBar, BotaoGeral,
-  BtAdd, Menu, Carrinho
+  BtAdd, Menu, Carrinho, DivC, ButtonC, DivPreço, DivComanda
 } from "./HomeStyled"
 
 export default function Home() {
@@ -54,27 +54,27 @@ export default function Home() {
   function AddCarrinho(item) {
 
     setComanda(prev => {
-      let index = prev.findIndex(a => a.ID === item.ID)
+      let index = prev.findIndex(i => i.ID === item.ID)
 
       if (index !== -1) {
         return prev.map((p, i) =>
           i === index ? { ...p, quantidade: (p.quantidade || 0) + 1 } : p
         )
       }
-      return [...prev, { ID: item.ID, sabor: item.sabor, quantidade: 1 }]
+      return [...prev, { ID: item.ID, sabor: item.sabor, quantidade: 1, preço: item.preço }]
     })
   }
 
   function RemoverCarrinho(item) {
     setComanda(prev => {
-      let index = prev.findIndex(a => a.ID === item.ID)
+      let index = prev.findIndex(i => i.ID === item.ID)
       
       if(index !== -1) {
 
         let quanti = item.quantidade
         
         if(quanti <= 1) {
-          return prev.filter(a => a.ID !== item.ID)
+          return prev.filter(i => i.ID !== item.ID)
         }
 
         return prev.map((p, i) => 
@@ -123,14 +123,22 @@ export default function Home() {
 
             <Carrinho>
               <h3>Carrinho</h3>
-              {
-                Comanda.map((item) =>
-                  <div key={item.ID}>
-                    <p>{item.sabor}{item.quantidade}</p>
-                    <button onClick={() => RemoverCarrinho(item)}>-1</button>
-                  </div>
-                )
-              }
+              <DivComanda>
+                {
+                  Comanda.map((item) =>
+                    <DivC key={item.ID}>
+                      <p>{item.sabor}</p>
+                      <p>{item.quantidade}</p>
+                      <ButtonC onClick={() => RemoverCarrinho(item)}>-1</ButtonC>
+                    </DivC>
+                  )
+                }
+              </DivComanda>
+
+              <DivPreço>
+                <p>Total:</p>
+                <p>R${() => calculaPreço()}</p>
+              </DivPreço>
             </Carrinho>
 
           </Menu>

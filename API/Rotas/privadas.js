@@ -1,6 +1,9 @@
 const { Router } = require("express")
 const router = Router()
 
+const bcrypt = require('bcrypt')
+require('dotenv').config()
+
 const pool = require("./Banco-de-Dados/Conecta-DB")
 
 
@@ -63,3 +66,34 @@ router.put('/atualizar', async (req, res) => {
   res.status(200).json("Produto Atualizado!")
 })
 module.exports = router
+
+router.post('/addWorker', async (req, res) => {
+  const {Usuario, Senha} = req.body
+
+  try {
+    var cript = await bcrypt.hash(Senha, 12)
+
+    if(Usuario !== "") {
+      if(Senha !== "") {
+        let query = "INSERT INTO sggl.adms (usuario, senha) value (?,?)"
+        let dados = [Usuario, cript]
+
+        pool.query(query, dados, (err, result) => {
+          if(err) {
+            console.log(err)
+          }
+          res.status(200).json("Usuario adicionado com sucesso!")
+        })
+      }
+      else {
+        res.status(401).json("Usuario ou Senha Incorreto!")
+      }
+    }
+    else {
+      res.status(401).json("Usuario ou Senha Incorreto!")
+    }
+  }
+  catch (err) {
+    res.status(401).json(err)
+  }
+})

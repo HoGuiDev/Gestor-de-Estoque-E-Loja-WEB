@@ -1,5 +1,5 @@
 import { Main, Bloco, Input, Label, Form, Button, Borda, Item, BtnEdit, Img, DivInput } from "./GerenciamentoStyled"
-import { ModelEdit } from "../../../Componentes/Models/ModelEdit"
+import { ModalEdit } from "../../../Componentes/Modals/ModalEdit"
 import { useState, useEffect } from "react"
 
 import check from "../../../assets/check.svg"
@@ -8,7 +8,7 @@ import xis from "../../../assets/xis.svg"
 export default function Gerenciamento() {
 
   const [DB, setDB] = useState([])
-  const [ModalEdit, setModalEdit] = useState(false)
+  const [ModalEditar, setModalEditar] = useState(false)
   const [ItemSelecionado, setItemSelecionado] = useState()
 
   useEffect(() => {
@@ -103,7 +103,7 @@ export default function Gerenciamento() {
   if(localStorage.getItem("Token")) {
     return (
       <>
-        <ModelEdit isOpen={ModalEdit} dados={ItemSelecionado} isClose={() => { setModalEdit(!ModalEdit); Pegar_Produtos() }} />
+        <ModalEdit isOpen={ModalEditar} dados={ItemSelecionado} isClose={() => { setModalEditar(!ModalEditar); Pegar_Produtos() }} />
         <Main>
           <Bloco>
             <Label>Registro de Podutos</Label>
@@ -154,7 +154,7 @@ export default function Gerenciamento() {
                     <p>{item.preço}</p>
                     <p>{item.quantidade}</p>
                     <Img $Shadow={item.disponivel} src={item.disponivel == 1 ? check : xis}></Img>
-                    <BtnEdit onClick={() => { setModalEdit(true); setItemSelecionado(item) }}>✏️</BtnEdit>
+                    <BtnEdit onClick={() => { setModalEditar(true); setItemSelecionado(item) }}>✏️</BtnEdit>
                   </Item>
                 )
               }
