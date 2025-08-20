@@ -1,12 +1,29 @@
-import styled from "styled-components"
+import styled, {createGlobalStyle} from "styled-components"
 
+/*   
+  primary: "#FA41BA",
+  secondary: "#CA94FA",
+  blue_1: "#4157FA",
+  blue_2: "#6741FA",
+  pink_1: "#FA41BA",
+  pink_2: "#D907FA" 
+*/
+
+//Estilização Global da pagina
+export const HomeGlobal = createGlobalStyle`
+  body {
+    background: #CA94FA;
+  }
+`
+
+//Elementos personalizados
 export const MainCardapio = styled.main `
   display: flex;
   flex-direction: column;
 `
 
 export const HeaderCardapio = styled.header `
-  background: rgba(252, 157, 255, 0.568);
+  background: #FA41BA;
 
   height: 10dvh;
 
@@ -15,10 +32,12 @@ export const HeaderCardapio = styled.header `
   align-items: center;
   justify-content: center;
 
-  border: 2px solid rgba(253, 182, 255, 0.856);
+  //border: 2px solid #E041FA;
   border-radius: 10px;
 
-  box-shadow: 0 0 10px rgba(253, 182, 255, 0.856), 0 0 20px rgba(253, 182, 255, 0.856), 0 0 40px rgba(253, 182, 255, 0.856);
+  filter: drop-shadow( 0px 10px 10px #A441FA);
+
+  //box-shadow: 0 0 10px rgba(253, 182, 255, 0.856), 0 0 20px rgba(253, 182, 255, 0.856), 0 0 40px rgba(253, 182, 255, 0.856);
 `
 
 export const TituloH1 = styled.h1 `
@@ -26,7 +45,13 @@ export const TituloH1 = styled.h1 `
 `
 
 export const ToolBar = styled.div `
-  border: 2px solid cyan;
+  border: 2px solid #FA41BA;
+  border-radius: 10px;
+
+  display: flex;
+
+  justify-content: space-around;
+
   margin: 20px 40px;
 `
 
@@ -36,14 +61,17 @@ export const BotaoGeral = styled.button `
 
 export const Produtos = styled.div `
   border: 2px solid;
-  border-color: rgba(224, 183, 204, 0.76);
+  border-color: #FA41BA;
   border-radius: 10px;
+
+  background: #ec9ef8bd;
 
   justify-self: ${a => a.$alinhar? a.$alinhar: "auto"};
   align-content: baseline;
 
   display: flex;
   flex-wrap: wrap;
+  flex: 2;
 
   gap: 10px;
 
@@ -58,6 +86,8 @@ export const Consumiveis = styled.div `
   border-color: currentColor;
 
   transition: border-color 0.8s;
+
+  background: #babbff;
 
   width: 145px;
   height: 100px;
@@ -90,23 +120,25 @@ export const BtAdd = styled.button `
 
 export const Menu = styled.div `
   display: flex;
+
+  height: 70dvh;
 `
 
 //Carrinho
 export const Carrinho = styled.aside `
-  border: black solid 2px;
+  border: #FA41BA solid 2px;
   border-radius: 10px;
+
+  background: #ec9ef8bd;
 
   display: flex;
   flex-direction: column;
 
-  height: 388px;
-  width: 30%;
+  flex: 1;
 
   margin-right: 15px;
 
   & > h3 {
-
     align-self: center;
   }
 `
@@ -114,15 +146,20 @@ export const Carrinho = styled.aside `
 export const DivComanda = styled.div `
   width: 100%;
   height: 90%;
-  
+
+  overflow-y: auto;
+
+  scrollbar-color: #FA41BA transparent;
 `
 
 export const DivC = styled.div `
   display: flex;
   justify-content: space-around;
 
+  height: 35px;
+
   &>p {
-    flex-basis: 37%;
+    flex-basis: 30%;
   }
 `
 
@@ -130,7 +167,9 @@ export const ButtonC = styled.button `
   width: 20px;
   height: 20px;
 
-  flex-basis: 11%;
+  flex-basis: 10%;
+
+  align-self: center;
 
   border-radius: 10px;
   border: black solid 1px;

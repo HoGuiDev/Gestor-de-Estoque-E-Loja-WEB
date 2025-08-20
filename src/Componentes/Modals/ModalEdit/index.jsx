@@ -1,4 +1,4 @@
-import { Fundo, Conteiner, BtnDelet, BtnFechar, BtnSalvar } from "./ModelEditStyled"
+import { Fundo, Conteiner, BtnDelet, BtnFechar, BtnSalvar } from "./ModalEditStyled"
 import { useEffect } from "react"
 
 export function ModalEdit({ isOpen, isClose, dados }) {

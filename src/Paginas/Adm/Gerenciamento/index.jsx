@@ -1,4 +1,4 @@
-import { Main, Bloco, Input, Label, Form, Button, Borda, Item, BtnEdit, Img, DivInput } from "./GerenciamentoStyled"
+import { Main, Bloco, Input, Label, Form, Button, Borda, Item, BtnEdit, Img, DivInput, GerenciamentoGlobal } from "./GerenciamentoStyled"
 import { ModalEdit } from "../../../Componentes/Modals/ModalEdit"
 import { useState, useEffect } from "react"
 
@@ -103,6 +103,7 @@ export default function Gerenciamento() {
   if(localStorage.getItem("Token")) {
     return (
       <>
+        <GerenciamentoGlobal />
         <ModalEdit isOpen={ModalEditar} dados={ItemSelecionado} isClose={() => { setModalEditar(!ModalEditar); Pegar_Produtos() }} />
         <Main>
           <Bloco>

@@ -1,4 +1,4 @@
-import { Conteiner, Div1, InputCtn, Btn } from "./LoginStyled"
+import { Conteiner, Div1, InputCtn, Btn, LoginGlobal } from "./LoginStyled"
 
 async function logar() {
 
@@ -49,6 +49,7 @@ async function logar() {
 export default function Login() {
   return (
     <>
+      <LoginGlobal />
       <Conteiner>
         <Div1>
           <div className="User">

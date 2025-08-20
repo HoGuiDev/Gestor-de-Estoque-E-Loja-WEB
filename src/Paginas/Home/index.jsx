@@ -4,6 +4,8 @@ import {
   MainCardapio, TituloH1, Consumiveis, HeaderCardapio, ToolBar, BotaoGeral,
   BtAdd, Menu, Carrinho, DivC, ButtonC, DivPreço, DivComanda
 } from "./HomeStyled"
+import { HomeGlobal } from "./HomeStyled";
+
 
 export default function Home() {
 
@@ -94,6 +96,7 @@ export default function Home() {
 
     return (
       <>
+        <HomeGlobal />
         <MainCardapio>
 
           <HeaderCardapio>
@@ -102,8 +105,8 @@ export default function Home() {
 
           <ToolBar>
             <BotaoGeral>Escolher Aleatorio</BotaoGeral>
-            <BotaoGeral>Sacola</BotaoGeral>
-            <BotaoGeral>Mais</BotaoGeral>
+            <BotaoGeral>Filtro</BotaoGeral>
+            <BotaoGeral>Contato</BotaoGeral>
           </ToolBar>
 
           <Menu>
@@ -114,8 +117,8 @@ export default function Home() {
                   <Consumiveis key={item.ID} className="Borda">
                     <p>Sabor: {item.sabor}</p>
                     <p>Quantidade: {item.quantidade}</p>
-                    <BtAdd onClick={() => AddCarrinho(item)}>+</BtAdd>
                     <p>Preço: {item.preço}</p>
+                    <BtAdd onClick={() => AddCarrinho(item)}>+</BtAdd>
                   </Consumiveis>
                 )
               }
@@ -144,7 +147,7 @@ export default function Home() {
           </Menu>
 
         </MainCardapio>
-
+      
       </>
     )
   }

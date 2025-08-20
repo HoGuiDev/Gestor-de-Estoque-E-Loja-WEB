@@ -1,4 +1,10 @@
-import styled from "styled-components";
+import styled, {createGlobalStyle} from "styled-components";
+
+export const GerenciamentoGlobal = createGlobalStyle`
+  body {
+    background: #9299ac;
+  }
+`
 
 export const Main = styled.main `
   width: auto;

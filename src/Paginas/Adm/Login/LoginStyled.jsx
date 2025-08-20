@@ -1,4 +1,10 @@
-import styled from 'styled-components'
+import styled, {createGlobalStyle} from 'styled-components'
+
+export const LoginGlobal = createGlobalStyle`
+  body {
+    background: #adadad;
+  }
+`
 
 export const Conteiner = styled.div`
   position: absolute;

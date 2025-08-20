@@ -1,4 +1,4 @@
-import { } from "./RegistroStyled"
+import { RegistroGlobal } from "./RegistroStyled"
 
 
 export default function Registro() {
@@ -42,6 +42,7 @@ export default function Registro() {
 
   return (
     <>
+      <RegistroGlobal />
       <form>
 
         <label>Usuario</label>

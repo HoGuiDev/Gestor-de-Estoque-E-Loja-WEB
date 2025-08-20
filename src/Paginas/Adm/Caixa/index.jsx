@@ -1,9 +1,12 @@
 import {} from "react"
-import "./CaixaStyled"
+import {CaixaGlobal} from "./CaixaStyled"
 
 export default function Caixa(){
 
   return(
-    <>Caixa</>
+    <>
+      <CaixaGlobal/>
+      Caixa
+    </>
   )
 }
