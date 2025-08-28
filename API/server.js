@@ -1,6 +1,7 @@
 const express = require('express')
 const { Router } = require("express")
 const cors = require('cors')
+const cookieParser = require('cookie-parser')
 require('dotenv').config()
 
 const RotasPublicas = require('./Rotas/publicas')
@@ -10,7 +11,12 @@ const Middleware = require("./Rotas/Middleware/middleware")
 const app = express()
 const port = 3000
 
-app.use(cors())
+app.use(cookieParser())
+
+app.use(cors({
+  origin: process.env.Origem,
+  credentials: true
+}))
 app.use(express.json())
 
 app.use("/api", RotasPublicas)

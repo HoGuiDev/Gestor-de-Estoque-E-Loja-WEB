@@ -7,12 +7,14 @@ export default function Registro() {
     let usuario = document.getElementById("Usuario")
     let senha = document.getElementById("Senha")
 
+    const api = import.meta.env.VITE_LOCAL
+
     if (usuario.value !== "") {
       if (senha.value !== "") {
 
         try {
           const token = localStorage.getItem("Token")
-          const request = await fetch("http://192.168.1.8:3000/api/addWorker", {
+          const request = await fetch(`http://${api}/api/addWorker`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

@@ -8,18 +8,18 @@ import { HomeGlobal } from "./HomeStyled";
 
 
 export default function Home() {
-
+  
   const [DB, setDB] = useState([])
   const [Carregando, setCarregando] = useState(true)
-
+  
   const [Comanda, setComanda] = useState([])
-
-
-
+  
   useEffect(() => {
+    const api = import.meta.env.VITE_LOCAL
+    
     const requisicao = async () => {
       try {
-        fetch("http://192.168.1.8:3000/api/produtos")
+        fetch(`http://${api}/api/produtos`)
           .then((res) => {
             return res.json()
           })

@@ -11,11 +11,13 @@ export default function Gerenciamento() {
   const [ModalEditar, setModalEditar] = useState(false)
   const [ItemSelecionado, setItemSelecionado] = useState()
 
+  const api = import.meta.env.VITE_LOCAL
+
   useEffect(() => {
     const requisicao = async () => {
       try {
         const token = localStorage.getItem("Token")
-        fetch("http://192.168.1.8:3000/api/get_gerenciador", {
+        fetch(`http://${api}/api/get_gerenciador`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -36,7 +38,7 @@ export default function Gerenciamento() {
     const requisicao = async () => {
       try {
         const token = localStorage.getItem("Token")
-        fetch("http://192.168.1.8:3000/api/get_gerenciador", {
+        fetch(`http://${api}/api/get_gerenciador`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -63,7 +65,7 @@ export default function Gerenciamento() {
 
       try {
         const token = localStorage.getItem("Token")
-        const request = await fetch("http://192.168.1.8:3000/api/add", {
+        const request = await fetch(`http://${api}/api/add`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -100,7 +102,7 @@ export default function Gerenciamento() {
   }
 
 
-  if(localStorage.getItem("Token")) {
+  if(true) {
     return (
       <>
         <GerenciamentoGlobal />

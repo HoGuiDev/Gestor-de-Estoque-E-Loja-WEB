@@ -37,7 +37,14 @@ router.post("/loginadm", async (req, res, next) => {
 
       if (compara === true) {
         const Token = jwt.sign({ name: Usuario }, process.env.jwt_code, { expiresIn: '1h' })
-        res.status(200).json({token: Token, verificar: true})
+        res.cookie('authToken', Token, {
+          httpOnly: true,
+          secure: false, //Utilizar em produção, pois precisa do *HTTPS*
+          sameSite: 'strict',
+          maxAge: 12 * 60 * 60 * 1000, //Da umas 12 horas mantido guardado
+        }).send({erro: "Cookie salvo com sucesso!"}).status(200)
+
+        //res.status(200).json({token: Token, verificar: true}) <-- Obsoleto, depois retirar!
       }
       else {
         res.status(401).json("Usuario ou senha incorreto!")
