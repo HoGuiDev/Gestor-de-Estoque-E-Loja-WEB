@@ -13,7 +13,7 @@ router.get("/get_gerenciador", async (req, res) => {   //Pega informações dos 
     if(result) {
       res.status(200).json(result)
     }else{
-      res.json(err)
+      res.json(err).status(401)
     }
   })
 })

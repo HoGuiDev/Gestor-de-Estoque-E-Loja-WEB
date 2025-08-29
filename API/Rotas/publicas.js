@@ -41,10 +41,8 @@ router.post("/loginadm", async (req, res, next) => {
           httpOnly: true,
           secure: false, //Utilizar em produção, pois precisa do *HTTPS*
           sameSite: 'strict',
-          maxAge: 12 * 60 * 60 * 1000, //Da umas 12 horas mantido guardado
+          maxAge:  1 * 60 * 60 * 1000, //Da umas 12 horas mantido guardado
         }).send({erro: "Cookie salvo com sucesso!"}).status(200)
-
-        //res.status(200).json({token: Token, verificar: true}) <-- Obsoleto, depois retirar!
       }
       else {
         res.status(401).json("Usuario ou senha incorreto!")

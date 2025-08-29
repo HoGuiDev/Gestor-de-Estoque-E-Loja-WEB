@@ -3,6 +3,8 @@ import { useEffect } from "react"
 
 export function ModalEdit({ isOpen, isClose, dados }) {
 
+  const api = import.meta.env.VITE_LOCAL
+
   useEffect(() => {
     if (dados) {
       let Sabor = document.getElementById("Sabor")
@@ -18,12 +20,11 @@ export function ModalEdit({ isOpen, isClose, dados }) {
   }, [dados])
 
   async function Delet() {
-    const token = localStorage.getItem("Token")
-    const request = await fetch("http://192.168.1.8:3000/api/delet", {
+    const request = await fetch(`http://${api}/api/delet`, {
       method: "DELETE",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify({
         id: dados.ID
@@ -31,7 +32,6 @@ export function ModalEdit({ isOpen, isClose, dados }) {
     })
 
     if (request.status === 401 || request.status === 403) {
-      localStorage.removeItem("Token")
       window.alert("Tempo expirado!")
       isClose()
       window.href = "/login"
@@ -51,12 +51,11 @@ export function ModalEdit({ isOpen, isClose, dados }) {
 
     let id = dados.ID
 
-    const token = localStorage.getItem("Token")
-    const request = await fetch("http://192.168.1.8:3000/api/atualizar", {
+    const request = await fetch(`http://${api}/api/atualizar`, {
       method: "PUT",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify({
         sabor: Sabor.value,
@@ -68,7 +67,6 @@ export function ModalEdit({ isOpen, isClose, dados }) {
     })
 
     if(request.status === 401 || request.status === 403) {
-      localStorage.removeItem("Token")
       window.alert("Tempo expirado!")
       isClose()
       window.href="/login"

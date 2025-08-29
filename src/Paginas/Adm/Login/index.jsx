@@ -33,7 +33,6 @@ export default function Login() {
           else {
             const res = await request.json()
             console.log(res)
-            localStorage.setItem("Token", res.token)
     
             window.location.href = "/gerenciamento"
           }
